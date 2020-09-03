@@ -1,27 +1,30 @@
 import React from "react";
-import "./SearchPage.css";
-import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+
 import { useStateValue } from "../StateProvider";
 import useGoogleSearch from "../useGoogleSearch";
 import mockResponse from "../mockResponse";
-import { Link } from "react-router-dom";
 import Search from "./../components/Search";
 
-import ImageIcon from "@material-ui/icons/Image";
-import LocalOfferIcon from "@material-ui/icons/LocalOffer";
-import RoomIcon from "@material-ui/icons/Room";
-import DescriptionIcon from "@material-ui/icons/Description";
-import SearchIcon from "@material-ui/icons/Search";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
+import "./SearchPage.css";
+import ImageIcon from "@material-ui/icons/ImageOutlined";
+import LocalOfferIcon from "@material-ui/icons/LocalOfferOutlined";
+import RoomIcon from "@material-ui/icons/RoomOutlined";
+import DescriptionIcon from "@material-ui/icons/DescriptionOutlined";
+import SearchIcon from "@material-ui/icons/SearchOutlined";
+import MoreVertIcon from "@material-ui/icons/MoreVertOutlined";
+import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 
-function SearchPage(props) {
+function SearchPage() {
   const [{ term }, dispatch] = useStateValue();
   //LIVE API CALL
-  //const { data } = useGoogleSearch(term);
+  const { data } = useGoogleSearch(term);
 
-  const data = mockResponse; //mock data
-  const resultCount = data?.searchInformation.formattedTotalResults;
-  const resultTime = data?.searchInformation.formattedSearchTime;
+  //mock data
+  //const data = mockResponse;
+
+  const resultCount = data?.searchInformation?.formattedTotalResults;
+  const resultTime = data?.searchInformation?.formattedSearchTime;
 
   console.log(data);
   return (
@@ -77,27 +80,20 @@ function SearchPage(props) {
         </div>
       </div>
 
-      {true && (
+      {term && (
         <div className="searchPage__results">
           <p className="searchPage__resultCount">
             About {resultCount} results ({resultTime} seconds) for {term}
           </p>
 
           {data?.items.map((item) => (
-            <div className="searchPage__result">
-              <a href={item.link}>
-                {item.pagemap?.cse_image?.length > 0 &&
-                  item.pagemap?.cse_image[0]?.src && (
-                    <img
-                      className="searchPage__resultImage"
-                      src={item.pagemap?.cse_image[0]?.src}
-                      alt=""
-                    />
-                  )}
+            <div className="searchPage__result" key={item.cacheId}>
+              <a className="searchPage__resultLink" href={item.link}>
                 {item.displayLink}
+                <ArrowDropDownIcon />
               </a>
-              <a className="searchPage_resultTitle" href={item.link}>
-                <h2>{item.title}</h2>
+              <a className="searchPage__resultTitle" href={item.link}>
+                <h3>{item.title}</h3>
               </a>
               <p className="searchPage__resultSnippet">{item.snippet}</p>
             </div>

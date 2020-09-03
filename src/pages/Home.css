@@ -14,17 +14,26 @@
   margin-right: 20px;
   text-decoration: inherit;
   color: rgba(0, 0, 0, 0.8);
-  font-size: 15px;
+  font-size: 13px;
 }
 
 .home__header a:hover {
   text-decoration: underline;
 }
 
+.home__headerAvatar.MuiAvatar-root {
+  width: 32px;
+  height: 32px;
+}
+
+.home__headerLeft,
 .home__headerRight {
   display: flex;
   align-items: center;
   min-width: 13vw;
+}
+
+.home__headerRight {
   justify-content: space-between;
 }
 
@@ -34,5 +43,6 @@
 
 .home__body > img {
   object-fit: contain;
-  height: 100px;
+  padding-top: 109px;
+  height: 92px;
 }

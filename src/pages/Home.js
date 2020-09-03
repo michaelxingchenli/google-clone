@@ -1,13 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Search from "./../components/Search";
+
 import "./Home.css";
 import { Avatar } from "@material-ui/core";
 import AppsIcon from "@material-ui/icons/Apps";
-import PropTypes from "prop-types";
 
-import Search from "./../components/Search";
-
-const Home = (props) => {
+const Home = () => {
   return (
     <div className="home">
       <div className="home__header">
@@ -19,7 +18,7 @@ const Home = (props) => {
           <Link to="/gmail">Gmail</Link>
           <Link to="/images">Images</Link>
           <AppsIcon />
-          <Avatar />
+          <Avatar className="home__headerAvatar" />
         </div>
       </div>
       <div className="home__body">
@@ -34,7 +33,5 @@ const Home = (props) => {
     </div>
   );
 };
-
-Home.propTypes = {};
 
 export default Home;
